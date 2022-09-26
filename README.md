@@ -25,8 +25,8 @@ code_quality:
 
 Code quality degraded
 
-![GitLab Merge Request Code Quality Widget](https://github.com/andnexus/flutter_analyze_reporter/blob/main/assets/code_quality_degraded.png?raw=true "GitLab Merge Request Code Quality Widget")
+![GitLab Merge Request Code Quality Widget](https://raw.githubusercontent.com/andnexus/flutter_analyze_reporter/main/assets/code_quality_degraded.png "GitLab Merge Request Code Quality Widget")
 
 No Changes to code quality
 
-![GitLab Merge Request Code Quality Widget](https://github.com/andnexus/flutter_analyze_reporter/blob/main/assets/no_changes_to_code_quality.png?raw=true "GitLab Merge Request Code Quality Widget")
+![GitLab Merge Request Code Quality Widget](https://raw.githubusercontent.com/andnexus/flutter_analyze_reporter/main/assets/no_changes_to_code_quality.png "GitLab Merge Request Code Quality Widget")
