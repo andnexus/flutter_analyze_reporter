@@ -4,39 +4,63 @@ import 'dart:convert';
 import 'dart:core';
 import 'dart:io';
 
+import 'package:args/args.dart';
 import 'package:crypto/crypto.dart';
 
-void main(List<String> args) {
-  if (args.contains("--help") || args.contains("-h")) {
-    print("\nRun flutter analyze and parse output to create a report.\n");
-    print("Usage: flutter_analyze_reporter [arguments]\n");
-    print("Options:");
-    print("-h, --help                  Print this usage information.");
-    print("-o, --output=<file>         Output the results to a file.");
-    print('                            (defaults to "report.json")');
-    print(
-        "-r, --reporter=<console>    The format of the output of the analysis.");
-    print("                            [console (default), gitlab]\n\n");
-  } else {
-    final Iterable<String> argOutput = args.where(
-      (element) => element.startsWith("-o") || element.startsWith("--output"),
-    );
-    final String output =
-        argOutput.isEmpty ? "report.json" : argOutput.first.split("=")[1];
+extension BoolParsing on String {
+  bool parseBool() {
+    return toLowerCase() == 'true';
+  }
+}
 
-    final Iterable<String> argReporter = args.where(
-      (element) => element.startsWith("-r") || element.startsWith("--reporter"),
-    );
-    final String reporter =
-        argReporter.isEmpty ? "console" : argReporter.first.split("=")[1];
-    _flutterAnalyze(output, reporter);
+void main(List<String> args) {
+  final ArgParser parser = ArgParser();
+  parser.addSeparator(
+    'A parser to create reports from `flutter analyze` output.\n',
+  );
+
+  parser.addFlag(
+    'help',
+    abbr: 'h',
+    help: 'Print this usage information.',
+  );
+
+  parser.addOption(
+    'reporter',
+    abbr: 'r',
+    defaultsTo: 'console',
+    help: 'Set output report type.',
+    allowed: ['console', 'gitlab'],
+    allowedHelp: {
+      'console': 'Print output to console.',
+      'gitlab': 'Generate GitLab code quality JSON report.',
+    },
+  );
+
+  parser.addOption(
+    'output',
+    abbr: 'o',
+    defaultsTo: 'report.json',
+    help: 'Output file name.',
+  );
+
+  final ArgResults results = parser.parse(args);
+
+  if (results['help'].toString().parseBool()) {
+    // ignore: avoid_print
+    print(parser.usage);
+  } else {
+    _flutterAnalyze(
+        results['output'].toString(), results['reporter'].toString());
   }
 }
 
 void _flutterAnalyze(String output, String reporter) {
   final ProcessResult result = Process.runSync('flutter', ['analyze']);
   if (reporter == "console") {
+    // ignore: avoid_print
     print(result.stdout);
+    // ignore: avoid_print
     print(result.stderr);
   } else if (reporter == "gitlab") {
     String json = "[]";
@@ -101,7 +125,5 @@ void _flutterAnalyze(String output, String reporter) {
 
     final File outputCodeClimate = File(output);
     outputCodeClimate.writeAsStringSync(json);
-  } else {
-    print("Unknown reporter");
   }
 }
