@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.5
+
+* Type severity mapping.
+
 ## 0.0.4
 
 * JSON encode description.
