@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.4
+
+* Suppress analytics while analyze.
+* Flutter SDK dependency.
+
 ## 0.0.3
 
 * Use args package to parse command line arguments.

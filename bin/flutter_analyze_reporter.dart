@@ -51,12 +51,17 @@ void main(List<String> args) {
     print(parser.usage);
   } else {
     _flutterAnalyze(
-        results['output'].toString(), results['reporter'].toString());
+      results['output'].toString(),
+      results['reporter'].toString(),
+    );
   }
 }
 
 void _flutterAnalyze(String output, String reporter) {
-  final ProcessResult result = Process.runSync('flutter', ['analyze']);
+  final ProcessResult result = Process.runSync('flutter', [
+    'analyze',
+    '--suppress-analytics',
+  ]);
   if (reporter == "console") {
     // ignore: avoid_print
     print(result.stdout);
