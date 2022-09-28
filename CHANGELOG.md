@@ -2,6 +2,7 @@
 
 ## 0.0.4
 
+* JSON encode description.
 * Suppress analytics while analyze.
 * Flutter SDK dependency.
 

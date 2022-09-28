@@ -114,7 +114,7 @@ void _flutterAnalyze(String output, String reporter) {
             categories.add("Compatibility");
             break;
         }
-        final String description = elements[1];
+        final String description = jsonEncode(elements[1]);
         final List<String> location = elements[2].split(delimiterLocation);
         final String path = location[0];
         final String line = location[1];
@@ -122,7 +122,7 @@ void _flutterAnalyze(String output, String reporter) {
         final String checkName = elements[3];
         final String fingerprint = md5.convert(utf8.encode(issue)).toString();
         json +=
-            """{"type":"$type","check_name":"$checkName","description":"$description","categories":${jsonEncode(categories)},"location":{"path":"$path","positions":{"begin":{"line":$line,"column":$column},"end":{"line":$line,"column":$column}}},"severity":"$severity","fingerprint":"$fingerprint"},""";
+            """{"type":"$type","check_name":"$checkName","description":$description,"categories":${jsonEncode(categories)},"location":{"path":"$path","positions":{"begin":{"line":$line,"column":$column},"end":{"line":$line,"column":$column}}},"severity":"$severity","fingerprint":"$fingerprint"},""";
       });
       json = json.substring(0, json.length - 1); // Remove last ','
       json += "]";
