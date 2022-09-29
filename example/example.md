@@ -27,12 +27,12 @@ stages:
   - test
 code_quality:
   stage: test
-  allow_failure: true
   before_script:
     - export PATH="$PATH":"$HOME/.pub-cache/bin"
   script:
     - dart pub global activate flutter_analyze_reporter
     - flutter_analyze_reporter --output report.json --reporter gitlab
-  reports:
-    codequality: report.json
+  artifacts: 
+    reports:
+      codequality: report.json
 ```
