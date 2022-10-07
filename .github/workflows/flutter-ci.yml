@@ -36,5 +36,7 @@ jobs:
       - run: flutter format --set-exit-if-changed .
 
       # Statically analyze the Dart code for any errors.
-      - run: flutter analyze .
+#      - run: flutter analyze .
+      - run: echo "::warning file=bin/flutter_analyze_reporter.dart,line=60,col=1::DEPRECATED! always_declare_return_types"
+
 
