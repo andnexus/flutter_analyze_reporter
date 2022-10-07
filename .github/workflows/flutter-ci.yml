@@ -6,8 +6,10 @@ on:
   push:
     branches:
       - master
-      - ci
-    # on: push    # Default will running for every branch.
+
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build:
