@@ -35,3 +35,6 @@ jobs:
 
       # Statically analyze the Dart code for any errors.
       - run: flutter analyze .
+
+      # Show logs
+      - run: cat report.json
