@@ -1,13 +1,6 @@
 name: Analyze
 
-on:
-  push:
-    branches:
-      - master
-
-  pull_request:
-    branches:
-      - main
+on: [push]
 
 jobs:
   build:

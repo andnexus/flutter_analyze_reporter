@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
 import 'model/issue.dart';
-import 'model/reporter/converter.dart';
+import 'model/reporter/convert.dart';
 import 'model/reporter/gitlab/gitlab_issue.dart';
 import 'model/reporter/gitlab/gitlab_location.dart';
 import 'model/reporter/gitlab/gitlab_position.dart';

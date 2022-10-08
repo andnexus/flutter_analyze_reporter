@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.7
+
+* Refactoring
+
 ## 0.0.6
 
 * Fix: Reports is part of artifacts mapping within example.
