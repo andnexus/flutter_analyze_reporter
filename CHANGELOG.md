@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.9
+
+* Checkstyle reporter
+
 ## 0.0.8
 
 * Added flutter analyze flags: no-preamble, no-congratulate, no-fatal-infos, no-fatal-warnings
