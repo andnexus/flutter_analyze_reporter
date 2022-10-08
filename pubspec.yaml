@@ -17,3 +17,5 @@ dependencies:
   flutter:
     sdk: flutter
   lint: ^1.10.0
+dev_dependencies:
+  test: ^1.21.6

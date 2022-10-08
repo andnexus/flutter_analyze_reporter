@@ -5,6 +5,7 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:flutter/foundation.dart';
 
 import 'flutter_analyze_arg_parser.dart';
 import 'git_lab_convert.dart';
@@ -39,7 +40,7 @@ void _flutterAnalyze({required String output, required String reporter}) {
   } else {
     final List<Issue> issues = [];
     if (result.stderr.toString().isNotEmpty) {
-      issues.addAll(_parseFlutterAnalyze(result.stdout.toString()));
+      issues.addAll(parseFlutterAnalyze(result.stdout.toString()));
     }
     switch (Reporter.values.byName(reporter)) {
       case Reporter.gitlab:
@@ -53,7 +54,8 @@ void _flutterAnalyze({required String output, required String reporter}) {
   }
 }
 
-List<Issue> _parseFlutterAnalyze(String stdout) {
+@visibleForTesting
+List<Issue> parseFlutterAnalyze(String stdout) {
   // TYPE • DESCRIPTION • PATH:LINE:COLUMN • CHECK_NAME
   const String delimiterSections = " • ";
   const String delimiterLocation = ":";

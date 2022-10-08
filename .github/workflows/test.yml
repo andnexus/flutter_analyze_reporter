@@ -1,7 +1,5 @@
 name: Flutter CI
 
-# This workflow is triggered on pushes to the repository.
-
 on:
   push:
     branches:
@@ -13,7 +11,6 @@ on:
 
 jobs:
   build:
-    # This job will run on ubuntu virtual machine
     runs-on: ubuntu-latest
     steps:
 
@@ -35,8 +32,10 @@ jobs:
       # Check for any formatting issues in the code.
       - run: flutter format --set-exit-if-changed .
 
+      # Lint checks
       - name: Analyze Dart
         uses: zgosalvez/github-actions-analyze-dart@v1
 
-
-
+      # Testing
+      - name: Test
+        run: flutter test
