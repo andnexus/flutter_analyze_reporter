@@ -5,8 +5,6 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:flutter/foundation.dart';
-
 import 'flutter_analyze_arg_parser.dart';
 import 'git_lab_convert.dart';
 import 'model/issue.dart';
@@ -54,7 +52,6 @@ void _flutterAnalyze({required String output, required String reporter}) {
   }
 }
 
-@visibleForTesting
 List<Issue> parseFlutterAnalyze(String stdout) {
   // TYPE • DESCRIPTION • PATH:LINE:COLUMN • CHECK_NAME
   const String delimiterSections = " • ";
