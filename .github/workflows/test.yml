@@ -1,4 +1,4 @@
-name: Coverage
+name: Test
 
 on:
   push:
@@ -31,4 +31,4 @@ jobs:
 
       # Testing
       - name: Run tests
-        run: flutter test --coverage
+        run: flutter test
