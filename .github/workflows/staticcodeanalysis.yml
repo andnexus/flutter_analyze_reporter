@@ -1,4 +1,4 @@
-name: Flutter CI
+name: Static code analysis
 
 on:
   push:
@@ -35,7 +35,3 @@ jobs:
       # Lint checks
       - name: Analyze Dart
         uses: zgosalvez/github-actions-analyze-dart@v1
-
-      # Testing
-      - name: Test
-        run: flutter test
