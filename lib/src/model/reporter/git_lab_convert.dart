@@ -1,13 +1,12 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
-
-import 'model/issue.dart';
-import 'model/reporter/convert.dart';
-import 'model/reporter/gitlab/gitlab_issue.dart';
-import 'model/reporter/gitlab/gitlab_location.dart';
-import 'model/reporter/gitlab/gitlab_position.dart';
-import 'model/reporter/gitlab/gitlab_positions.dart';
+import 'package:flutter_analyze_reporter/src/model/issue.dart';
+import 'package:flutter_analyze_reporter/src/model/reporter/convert.dart';
+import 'package:flutter_analyze_reporter/src/model/reporter/gitlab/gitlab_issue.dart';
+import 'package:flutter_analyze_reporter/src/model/reporter/gitlab/gitlab_location.dart';
+import 'package:flutter_analyze_reporter/src/model/reporter/gitlab/gitlab_position.dart';
+import 'package:flutter_analyze_reporter/src/model/reporter/gitlab/gitlab_positions.dart';
 
 class GitLabConvert extends Convert {
   @override

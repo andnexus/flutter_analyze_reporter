@@ -1,4 +1,4 @@
-import 'location.dart';
+import 'package:flutter_analyze_reporter/src/model/location.dart';
 
 class Issue {
   final String raw;

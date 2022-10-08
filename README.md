@@ -11,3 +11,9 @@ Code quality degraded
 No Changes to code quality
 
 ![GitLab Merge Request Code Quality Widget](https://raw.githubusercontent.com/andnexus/flutter_analyze_reporter/main/assets/no_changes_to_code_quality.png "GitLab Merge Request Code Quality Widget")
+
+## Console output
+
+Error, warning and info colorized
+
+![Error, warning and info colorized](https://raw.githubusercontent.com/andnexus/flutter_analyze_reporter/main/assets/console_output.png "Error, warning and info colorized")

@@ -1,7 +1,6 @@
+import 'package:flutter_analyze_reporter/src/model/issue.dart';
+import 'package:flutter_analyze_reporter/src/model/reporter/convert.dart';
 import 'package:xml/xml.dart';
-
-import 'model/issue.dart';
-import 'model/reporter/convert.dart';
 
 class CheckstyleConvert extends Convert {
   @override

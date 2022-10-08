@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.10
+
+* Colorized console output
+
 ## 0.0.9
 
 * Checkstyle reporter

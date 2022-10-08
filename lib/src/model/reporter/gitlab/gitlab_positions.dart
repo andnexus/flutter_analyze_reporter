@@ -1,4 +1,4 @@
-import 'gitlab_position.dart';
+import 'package:flutter_analyze_reporter/src/model/reporter/gitlab/gitlab_position.dart';
 
 class GitlabPositions {
   final GitLabPosition begin;

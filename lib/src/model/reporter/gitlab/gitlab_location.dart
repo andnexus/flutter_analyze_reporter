@@ -1,4 +1,4 @@
-import 'gitlab_positions.dart';
+import 'package:flutter_analyze_reporter/src/model/reporter/gitlab/gitlab_positions.dart';
 
 class GitLabLocation {
   final String path;

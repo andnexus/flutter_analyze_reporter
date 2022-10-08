@@ -1,12 +1,11 @@
+import 'package:flutter_analyze_reporter/src/parser/flutter_analyze_parser.dart';
 import 'package:test/test.dart';
-
-import '../bin/flutter_analyze_reporter.dart';
 
 void main() {
   test('Parse flutter analyze issue', () {
     var stdout =
         '  TYPE • DESCRIPTION • PATH:5:23 • CHECK_NAME\n  TYPE • DESCRIPTION • PATH:42:42 • CHECK_NAME';
-    var issues = parseFlutterAnalyze(stdout);
+    var issues = FlutterAnalyzeParser().flutterAnalyze(stdout: stdout);
     expect(issues.length, equals(2));
     expect(issues.first.raw,
         equals("  TYPE • DESCRIPTION • PATH:5:23 • CHECK_NAME"));
