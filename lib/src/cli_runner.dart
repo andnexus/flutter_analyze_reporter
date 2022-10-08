@@ -2,9 +2,9 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:flutter_analyze_reporter/src/model/reporter/checkstyle_convert.dart';
-import 'package:flutter_analyze_reporter/src/model/reporter/console_convert.dart';
-import 'package:flutter_analyze_reporter/src/model/reporter/git_lab_convert.dart';
+import 'package:flutter_analyze_reporter/src/convert/checkstyle_convert.dart';
+import 'package:flutter_analyze_reporter/src/convert/console_convert.dart';
+import 'package:flutter_analyze_reporter/src/convert/git_lab_convert.dart';
 import 'package:flutter_analyze_reporter/src/model/reporter/reporter.dart';
 import 'package:flutter_analyze_reporter/src/parser/flutter_analyze_arg_parser.dart';
 import 'package:flutter_analyze_reporter/src/parser/flutter_analyze_parser.dart';

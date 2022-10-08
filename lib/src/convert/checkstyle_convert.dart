@@ -1,5 +1,5 @@
+import 'package:flutter_analyze_reporter/src/convert/convert.dart';
 import 'package:flutter_analyze_reporter/src/model/issue.dart';
-import 'package:flutter_analyze_reporter/src/model/reporter/convert.dart';
 import 'package:xml/xml.dart';
 
 class CheckstyleConvert extends Convert {

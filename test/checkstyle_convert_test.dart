@@ -1,4 +1,4 @@
-import 'package:flutter_analyze_reporter/src/model/reporter/checkstyle_convert.dart';
+import 'package:flutter_analyze_reporter/src/convert/checkstyle_convert.dart';
 import 'package:flutter_analyze_reporter/src/parser/flutter_analyze_parser.dart';
 import 'package:test/test.dart';
 

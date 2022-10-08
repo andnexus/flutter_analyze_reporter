@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
+import 'package:flutter_analyze_reporter/src/convert/convert.dart';
 import 'package:flutter_analyze_reporter/src/model/issue.dart';
-import 'package:flutter_analyze_reporter/src/model/reporter/convert.dart';
 import 'package:flutter_analyze_reporter/src/model/reporter/gitlab/gitlab_issue.dart';
 import 'package:flutter_analyze_reporter/src/model/reporter/gitlab/gitlab_location.dart';
 import 'package:flutter_analyze_reporter/src/model/reporter/gitlab/gitlab_position.dart';

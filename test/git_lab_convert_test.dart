@@ -1,4 +1,4 @@
-import 'package:flutter_analyze_reporter/src/model/reporter/git_lab_convert.dart';
+import 'package:flutter_analyze_reporter/src/convert/git_lab_convert.dart';
 import 'package:flutter_analyze_reporter/src/parser/flutter_analyze_parser.dart';
 import 'package:test/test.dart';
 
