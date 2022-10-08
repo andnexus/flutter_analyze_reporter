@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 
-import '../../issue.dart';
-import '../converter.dart';
-import 'gitlab_issue.dart';
+import 'model/issue.dart';
+import 'model/reporter/converter.dart';
+import 'model/reporter/gitlab/gitlab_issue.dart';
+import 'model/reporter/gitlab/gitlab_location.dart';
+import 'model/reporter/gitlab/gitlab_position.dart';
+import 'model/reporter/gitlab/gitlab_positions.dart';
 
 class GitLabConvert extends Convert<GitLabIssue> {
   @override
