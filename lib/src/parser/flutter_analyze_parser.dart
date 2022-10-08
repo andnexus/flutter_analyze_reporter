@@ -3,6 +3,7 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:flutter_analyze_reporter/src/model/issue.dart';
+import 'package:flutter_analyze_reporter/src/model/issue_type.dart';
 import 'package:flutter_analyze_reporter/src/model/location.dart';
 
 class FlutterAnalyzeParser {
@@ -42,7 +43,7 @@ class FlutterAnalyzeParser {
       result.add(
         Issue(
           raw: issue,
-          type: elements[0].trim(),
+          type: IssueType.values.byName(elements[0].trim()),
           description: elements[1],
           location: Location(
             line: int.parse(elements[2].split(delimiterLocation)[1]),

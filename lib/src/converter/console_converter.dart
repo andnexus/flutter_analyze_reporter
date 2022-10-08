@@ -1,8 +1,9 @@
 import 'package:ansicolor/ansicolor.dart';
-import 'package:flutter_analyze_reporter/src/convert/convert.dart';
+import 'package:flutter_analyze_reporter/src/converter/converter.dart';
 import 'package:flutter_analyze_reporter/src/model/issue.dart';
+import 'package:flutter_analyze_reporter/src/model/issue_type.dart';
 
-class ConsoleConvert extends Convert {
+class ConsoleConverter extends Converter {
   @override
   String convert(List<Issue> issues) {
     if (issues.isEmpty) {
@@ -16,13 +17,13 @@ class ConsoleConvert extends Convert {
       final row =
           '\t${issue.type}\t${issue.checkName}\t${issue.location.path}:${issue.location.line}\t${issue.description}\n';
       switch (issue.type) {
-        case "info":
+        case IssueType.info:
           stdout += greenPen(row);
           break;
-        case "warning":
+        case IssueType.warning:
           stdout += yellowPen(row);
           break;
-        case "error":
+        case IssueType.error:
           stdout += redPen(row);
           break;
       }

@@ -1,14 +1,15 @@
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
-import 'package:flutter_analyze_reporter/src/convert/convert.dart';
+import 'package:flutter_analyze_reporter/src/converter/converter.dart';
 import 'package:flutter_analyze_reporter/src/model/issue.dart';
+import 'package:flutter_analyze_reporter/src/model/issue_type.dart';
 import 'package:flutter_analyze_reporter/src/model/reporter/gitlab/gitlab_issue.dart';
 import 'package:flutter_analyze_reporter/src/model/reporter/gitlab/gitlab_location.dart';
 import 'package:flutter_analyze_reporter/src/model/reporter/gitlab/gitlab_position.dart';
 import 'package:flutter_analyze_reporter/src/model/reporter/gitlab/gitlab_positions.dart';
 
-class GitLabConvert extends Convert {
+class GitLabConverter extends Converter {
   @override
   String convert(List<Issue> issues) {
     final List<GitLabIssue> gitlabIssues = <GitLabIssue>[];
@@ -43,16 +44,16 @@ class GitLabConvert extends Convert {
 
   // Map values from dart analyzer to dart code metrics for GitLab code climate widget.
   // code climate: category: Bug Risk, Clarity, Compatibility, Complexity, Duplication, Performance, Security, Style
-  List<String> categories(String type) {
+  List<String> categories(IssueType type) {
     final List<String> categories = <String>['Clarity'];
     switch (type) {
-      case "info":
+      case IssueType.info:
         categories.add("Style");
         break;
-      case "warning":
+      case IssueType.warning:
         categories.add("Bug Risk");
         break;
-      case "error":
+      case IssueType.error:
         categories.add("Bug Risk");
         break;
       default:
@@ -65,16 +66,16 @@ class GitLabConvert extends Convert {
   // Map values from dart analyzer to dart code metrics for GitLab code climate widget.
   // code climate: severity: info, minor, major, critical, blocker
   // dart analyzer: severity: info, warning, error
-  String severity(String type) {
+  String severity(IssueType type) {
     String severity;
     switch (type) {
-      case "info":
+      case IssueType.info:
         severity = "info";
         break;
-      case "warning":
+      case IssueType.warning:
         severity = "major";
         break;
-      case "error":
+      case IssueType.error:
         severity = "blocker";
         break;
       default:

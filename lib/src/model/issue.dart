@@ -1,8 +1,9 @@
+import 'package:flutter_analyze_reporter/src/model/issue_type.dart';
 import 'package:flutter_analyze_reporter/src/model/location.dart';
 
 class Issue {
   final String raw;
-  final String type;
+  final IssueType type;
   final String description;
   final Location location;
   final String checkName;

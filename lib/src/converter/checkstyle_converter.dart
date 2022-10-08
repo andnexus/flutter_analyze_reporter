@@ -1,8 +1,8 @@
-import 'package:flutter_analyze_reporter/src/convert/convert.dart';
+import 'package:flutter_analyze_reporter/src/converter/converter.dart';
 import 'package:flutter_analyze_reporter/src/model/issue.dart';
 import 'package:xml/xml.dart';
 
-class CheckstyleConvert extends Convert {
+class CheckstyleConverter extends Converter {
   @override
   String convert(List<Issue> issues) {
     final builder = XmlBuilder();
@@ -34,7 +34,7 @@ class CheckstyleConvert extends Convert {
       attributes: {
         'line': '${locationStart.line}',
         if (locationStart.column > 0) 'column': '${locationStart.column}',
-        'severity': issue.type,
+        'severity': issue.type.name,
         'message': issue.description,
         'source': issue.checkName,
       },
