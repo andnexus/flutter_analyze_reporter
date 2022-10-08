@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.8
+
+* Added flutter analyze flags: no-preamble, no-congratulate, no-fatal-infos, no-fatal-warnings
+
 ## 0.0.7
 
 * Refactoring
@@ -15,7 +19,7 @@
 ## 0.0.4
 
 * JSON encode description.
-* Suppress analytics while analyze.
+* Added flutter analyze flag: suppress-analytics
 * Flutter SDK dependency.
 
 ## 0.0.3

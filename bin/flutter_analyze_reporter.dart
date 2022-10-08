@@ -5,12 +5,14 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:args/args.dart';
+
 import 'flutter_analyze_arg_parser.dart';
 import 'git_lab_convert.dart';
 import 'model/issue.dart';
 import 'model/location.dart';
 import 'model/reporter/reporter.dart';
 
+// Activate locally: dart pub global activate -s path .
 void main(List<String> args) {
   final flutterAnalyzeArgParser = FlutterAnalyzeArgParser();
   final ArgResults results = flutterAnalyzeArgParser.parse(args);
@@ -29,12 +31,20 @@ void _flutterAnalyze({required String output, required String reporter}) {
   final ProcessResult result = Process.runSync('flutter', [
     'analyze',
     '--suppress-analytics',
+    '--no-preamble',
+    '--no-congratulate',
+    '--no-fatal-infos',
+    '--no-fatal-warnings',
   ]);
   if (reporter == Reporter.console.name) {
-    // ignore: avoid_print
-    print(result.stdout);
-    // ignore: avoid_print
-    print(result.stderr);
+    if (result.stdout.toString().isNotEmpty) {
+      // ignore: avoid_print
+      print(result.stdout);
+    }
+    if (result.stderr.toString().isNotEmpty) {
+      // ignore: avoid_print
+      print(result.stderr);
+    }
   } else {
     final List<Issue> issues = [];
     if (result.stderr.toString().isNotEmpty) {
