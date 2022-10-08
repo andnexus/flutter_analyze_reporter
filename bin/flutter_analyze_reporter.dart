@@ -5,132 +5,84 @@ import 'dart:core';
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:crypto/crypto.dart';
-
-extension BoolParsing on String {
-  bool parseBool() {
-    return toLowerCase() == 'true';
-  }
-}
+import 'flutter_analyze_arg_parser.dart';
+import 'git_lab_convert.dart';
+import 'model/issue.dart';
+import 'model/location.dart';
+import 'model/reporter/reporter.dart';
 
 void main(List<String> args) {
-  final ArgParser parser = ArgParser();
-  parser.addSeparator(
-    'A parser to create reports from `flutter analyze` output.\n',
-  );
-
-  parser.addFlag(
-    'help',
-    abbr: 'h',
-    help: 'Print this usage information.',
-  );
-
-  parser.addOption(
-    'reporter',
-    abbr: 'r',
-    defaultsTo: 'console',
-    help: 'Set output report type.',
-    allowed: ['console', 'gitlab'],
-    allowedHelp: {
-      'console': 'Print output to console.',
-      'gitlab': 'Generate GitLab code quality JSON report.',
-    },
-  );
-
-  parser.addOption(
-    'output',
-    abbr: 'o',
-    defaultsTo: 'report.json',
-    help: 'Output file name.',
-  );
-
-  final ArgResults results = parser.parse(args);
-
-  if (results['help'].toString().parseBool()) {
+  final flutterAnalyzeArgParser = FlutterAnalyzeArgParser();
+  final ArgResults results = flutterAnalyzeArgParser.parse(args);
+  if (results.wasParsed(FlutterAnalyzeArgParser.help)) {
     // ignore: avoid_print
-    print(parser.usage);
+    print(flutterAnalyzeArgParser.usage);
   } else {
     _flutterAnalyze(
-      results['output'].toString(),
-      results['reporter'].toString(),
+      output: results[FlutterAnalyzeArgParser.output].toString(),
+      reporter: results[FlutterAnalyzeArgParser.reporter].toString(),
     );
   }
 }
 
-void _flutterAnalyze(String output, String reporter) {
+void _flutterAnalyze({required String output, required String reporter}) {
   final ProcessResult result = Process.runSync('flutter', [
     'analyze',
     '--suppress-analytics',
   ]);
-  if (reporter == "console") {
+  if (reporter == Reporter.console.name) {
     // ignore: avoid_print
     print(result.stdout);
     // ignore: avoid_print
     print(result.stderr);
-  } else if (reporter == "gitlab") {
-    String json = "[]";
+  } else {
+    final List<Issue> issues = [];
     if (result.stderr.toString().isNotEmpty) {
-      // TYPE • DESCRIPTION • PATH:LINE:COLUMN • CHECK_NAME
-      const String delimiterSections = " • ";
-      const String delimiterLocation = ":";
-      json = "[";
-      final List<String> lines =
-          const LineSplitter().convert(result.stdout.toString());
-      lines
-          .where(
-        (v) =>
-            v.trim().isNotEmpty &&
-            // type, description, location, identifier
-            v.split(delimiterSections).length == 4 &&
-            // path, line, column
-            v.split(delimiterSections)[2].split(delimiterLocation).length == 3,
-      )
-          .forEach((issue) {
-        final List<String> elements = issue.split(delimiterSections);
-        // Map values from dart analyzer to dart code metrics for GitLab code climate widget.
-        // code climate:
-        // severity: info, minor, major, critical, blocker
-        // category: Bug Risk, Clarity, Compatibility, Complexity, Duplication, Performance, Security, Style
-        // dart analyzer:
-        // severity: info, warning, error
-        final String type = elements[0].trim();
-        String severity;
-        final List<String> categories = <String>['Clarity'];
-        switch (type) {
-          case "info":
-            severity = "info";
-            categories.add("Style");
-            break;
-          case "warning":
-            severity = "major";
-            categories.add("Security");
-            break;
-          case "error":
-            severity = "blocker";
-            categories.add("Bug Risk");
-            break;
-          default:
-            severity = "critical";
-            categories.add("Compatibility");
-            break;
-        }
-        severity = jsonEncode(severity);
-        final String description = jsonEncode(elements[1]);
-        final List<String> location = elements[2].split(delimiterLocation);
-        final String path = jsonEncode(location[0]);
-        final String line = location[1];
-        final String column = location[2];
-        final String checkName = jsonEncode(elements[3]);
-        final String fingerprint =
-            jsonEncode(md5.convert(utf8.encode(issue)).toString());
-        json +=
-            """{"type":$severity,"check_name":$checkName,"description":$description,"categories":${jsonEncode(categories)},"location":{"path":$path,"positions":{"begin":{"line":$line,"column":$column},"end":{"line":$line,"column":$column}}},"severity":$severity,"fingerprint":$fingerprint},""";
-      });
-      json = json.substring(0, json.length - 1); // Remove last ','
-      json += "]";
+      issues.addAll(parseFlutterAnalyze(result.stdout.toString()));
     }
-
-    final File outputCodeClimate = File(output);
-    outputCodeClimate.writeAsStringSync(json);
+    switch (Reporter.values.byName(reporter)) {
+      case Reporter.gitlab:
+        final File outputCodeClimate = File(output);
+        final String json = jsonEncode(GitLabConvert().convert(issues));
+        outputCodeClimate.writeAsStringSync(json);
+        break;
+      default:
+        break;
+    }
   }
+}
+
+List<Issue> parseFlutterAnalyze(String stdout) {
+  // TYPE • DESCRIPTION • PATH:LINE:COLUMN • CHECK_NAME
+  const String delimiterSections = " • ";
+  const String delimiterLocation = ":";
+
+  final List<Issue> result = [];
+  final List<String> lines = const LineSplitter().convert(stdout);
+  lines
+      .where(
+    (v) =>
+        v.trim().isNotEmpty &&
+        // type, description, location, identifier
+        v.split(delimiterSections).length == 4 &&
+        // path, line, column
+        v.split(delimiterSections)[2].split(delimiterLocation).length == 3,
+  )
+      .forEach((issue) {
+    final List<String> elements = issue.split(delimiterSections);
+    result.add(
+      Issue(
+        raw: issue,
+        type: elements[0].trim(),
+        description: elements[1],
+        location: Location(
+          line: int.parse(elements[2].split(delimiterLocation)[1]),
+          column: int.parse(elements[2].split(delimiterLocation)[2]),
+          path: elements[2].split(delimiterLocation)[0],
+        ),
+        checkName: elements[3],
+      ),
+    );
+  });
+  return result;
 }
