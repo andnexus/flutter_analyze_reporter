@@ -19,7 +19,7 @@ class GitLabConvert extends Convert<GitLabIssue> {
           checkName: element.checkName,
           description: element.description,
           categories: categories(element.type),
-          fingerprint: md5.convert(utf8.encode(element.toString())).toString(),
+          fingerprint: md5.convert(utf8.encode(element.raw)).toString(),
           location: GitLabLocation(
             path: element.location.path,
             positions: GitlabPositions(
@@ -39,6 +39,8 @@ class GitLabConvert extends Convert<GitLabIssue> {
     return gitlabIssues;
   }
 
+  // Map values from dart analyzer to dart code metrics for GitLab code climate widget.
+  // code climate: category: Bug Risk, Clarity, Compatibility, Complexity, Duplication, Performance, Security, Style
   @override
   List<String> categories(String type) {
     final List<String> categories = <String>['Clarity'];
@@ -59,6 +61,9 @@ class GitLabConvert extends Convert<GitLabIssue> {
     return categories;
   }
 
+  // Map values from dart analyzer to dart code metrics for GitLab code climate widget.
+  // code climate: severity: info, minor, major, critical, blocker
+  // dart analyzer: severity: info, warning, error
   @override
   String severity(String type) {
     String severity;
