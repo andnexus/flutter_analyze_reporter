@@ -26,7 +26,7 @@ void main(List<String> args) {
   }
 }
 
- _flutterAnalyze({required String output, required String reporter}) {
+void _flutterAnalyze({required String output, required String reporter}) {
   final ProcessResult result = Process.runSync('flutter', [
     'analyze',
     '--suppress-analytics',
