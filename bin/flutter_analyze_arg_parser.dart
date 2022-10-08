@@ -1,5 +1,7 @@
 import 'package:args/args.dart';
 
+import 'model/reporter/reporter.dart';
+
 class FlutterAnalyzeArgParser {
   static final ArgParser _parser = ArgParser();
   static const String help = "help";
@@ -22,17 +24,30 @@ class FlutterAnalyzeArgParser {
       abbr: 'r',
       defaultsTo: 'console',
       help: 'Set output report type.',
-      allowed: ['console', 'gitlab'],
-      allowedHelp: {
-        'console': 'Print output to console.',
-        'gitlab': 'Generate GitLab code quality JSON report.',
-      },
+      allowed: Reporter.values.map((e) => e.name),
+      allowedHelp: Map<String, String>.fromEntries(
+        Reporter.values.map(
+          (e) {
+            switch (e) {
+              case Reporter.console:
+                return MapEntry(e.name, 'Print output to console.');
+              case Reporter.gitlab:
+                return MapEntry(
+                  e.name,
+                  'Generate GitLab code quality JSON report.',
+                );
+              case Reporter.checkstyle:
+                return MapEntry(e.name, 'Generate Checkstyle report.');
+            }
+          },
+        ),
+      ),
     );
 
     _parser.addOption(
       output,
       abbr: 'o',
-      defaultsTo: 'report.json',
+      defaultsTo: 'report',
       help: 'Output file name.',
     );
   }

@@ -8,11 +8,12 @@ A parser to create reports from `flutter analyze` output.
 -h, --[no-]help                  Print this usage information.
 -r, --reporter                   Set output report type.
 
+          [checkstyle]           Generate Checkstyle report.
           [console] (default)    Print output to console.
           [gitlab]               Generate GitLab code quality JSON report.
 
 -o, --output                     Output file name.
-                                 (defaults to "report.json")
+                                 (defaults to "report")
 ```
 Usage example `flutter_analyze_reporter --output report.json --reporter gitlab`
 
