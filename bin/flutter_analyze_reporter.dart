@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 
+import 'checkstyle_convert.dart';
 import 'flutter_analyze_arg_parser.dart';
 import 'git_lab_convert.dart';
 import 'model/issue.dart';
@@ -21,13 +22,13 @@ void main(List<String> args) {
     print(flutterAnalyzeArgParser.usage);
   } else {
     _flutterAnalyze(
-      output: results[FlutterAnalyzeArgParser.output].toString(),
+      path: results[FlutterAnalyzeArgParser.output].toString(),
       reporter: results[FlutterAnalyzeArgParser.reporter].toString(),
     );
   }
 }
 
-void _flutterAnalyze({required String output, required String reporter}) {
+void _flutterAnalyze({required String path, required String reporter}) {
   final ProcessResult result = Process.runSync('flutter', [
     'analyze',
     '--suppress-analytics',
@@ -50,15 +51,18 @@ void _flutterAnalyze({required String output, required String reporter}) {
     if (result.stderr.toString().isNotEmpty) {
       issues.addAll(parseFlutterAnalyze(result.stdout.toString()));
     }
+    String output = "";
     switch (Reporter.values.byName(reporter)) {
       case Reporter.gitlab:
-        final File outputCodeClimate = File(output);
-        final String json = jsonEncode(GitLabConvert().convert(issues));
-        outputCodeClimate.writeAsStringSync(json);
+        output = GitLabConvert().convert(issues);
+        break;
+      case Reporter.checkstyle:
+        output = CheckstyleConvert().convert(issues);
         break;
       default:
         break;
     }
+    File(path).writeAsStringSync(output);
   }
 }
 

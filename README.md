@@ -1,6 +1,6 @@
 Flutter Analyze Reporter is a parser to create reports from `flutter analyze` output. 
 
-Currently only useful if you would like to display lint issues within [GitLab Code Quality Widget](https://docs.gitlab.com/ee/ci/testing/code_quality.html).
+Currently only useful if you would like to display lint issues within [GitLab Code Quality Widget](https://docs.gitlab.com/ee/ci/testing/code_quality.html) or create a checkstyle report.
 
 ## GitLab Code Quality Widget 
 

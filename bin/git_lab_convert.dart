@@ -9,9 +9,9 @@ import 'model/reporter/gitlab/gitlab_location.dart';
 import 'model/reporter/gitlab/gitlab_position.dart';
 import 'model/reporter/gitlab/gitlab_positions.dart';
 
-class GitLabConvert extends Convert<GitLabIssue> {
+class GitLabConvert extends Convert {
   @override
-  List<GitLabIssue> convert(List<Issue> issues) {
+  String convert(List<Issue> issues) {
     final List<GitLabIssue> gitlabIssues = <GitLabIssue>[];
     for (final element in issues) {
       final type = severity(element.type);
@@ -39,12 +39,11 @@ class GitLabConvert extends Convert<GitLabIssue> {
         ),
       );
     }
-    return gitlabIssues;
+    return jsonEncode(gitlabIssues);
   }
 
   // Map values from dart analyzer to dart code metrics for GitLab code climate widget.
   // code climate: category: Bug Risk, Clarity, Compatibility, Complexity, Duplication, Performance, Security, Style
-  @override
   List<String> categories(String type) {
     final List<String> categories = <String>['Clarity'];
     switch (type) {
@@ -67,7 +66,6 @@ class GitLabConvert extends Convert<GitLabIssue> {
   // Map values from dart analyzer to dart code metrics for GitLab code climate widget.
   // code climate: severity: info, minor, major, critical, blocker
   // dart analyzer: severity: info, warning, error
-  @override
   String severity(String type) {
     String severity;
     switch (type) {
