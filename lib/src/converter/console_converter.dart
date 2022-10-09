@@ -3,6 +3,7 @@ import 'package:flutter_analyze_reporter/src/converter/converter.dart';
 import 'package:flutter_analyze_reporter/src/model/issue.dart';
 import 'package:flutter_analyze_reporter/src/model/issue_type.dart';
 
+/// Convert to console output.
 class ConsoleConverter extends Converter {
   @override
   String convert(List<Issue> issues) {
@@ -15,7 +16,7 @@ class ConsoleConverter extends Converter {
     String stdout = '\n';
     for (final issue in issues) {
       final row =
-          '\t${issue.type}\t${issue.checkName}\t${issue.location.path}:${issue.location.line}\t${issue.description}\n';
+          '\t${issue.type.name}\t${issue.checkName}\t${issue.location.path}:${issue.location.line}\t${issue.description}\n';
       switch (issue.type) {
         case IssueType.info:
           stdout += greenPen(row);

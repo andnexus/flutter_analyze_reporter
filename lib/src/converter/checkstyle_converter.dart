@@ -2,6 +2,7 @@ import 'package:flutter_analyze_reporter/src/converter/converter.dart';
 import 'package:flutter_analyze_reporter/src/model/issue.dart';
 import 'package:xml/xml.dart';
 
+/// Convert to checkstyle XML.
 class CheckstyleConverter extends Converter {
   @override
   String convert(List<Issue> issues) {
