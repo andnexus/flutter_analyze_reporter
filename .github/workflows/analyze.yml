@@ -27,4 +27,6 @@ jobs:
 
       # Lint checks
       - name: Analyze Dart
-        uses: zgosalvez/github-actions-analyze-dart@v1
+      - run: dart pub global activate -s path .
+
+      - run: flutter_analyze_reporter

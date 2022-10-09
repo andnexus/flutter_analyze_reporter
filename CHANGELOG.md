@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.11
+
+* Pub points: API documentation
+
 ## 0.0.10
 
 * Colorized console output
