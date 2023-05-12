@@ -1,4 +1,4 @@
-name: Static Code Analysis
+name: Static code analysis
 
 on: [push]
 
@@ -26,7 +26,7 @@ jobs:
       - name: Check formatting
 
       # Check for any formatting issues in the code.
-        run: flutter format --set-exit-if-changed .
+        run: dart format --set-exit-if-changed .
 
       - name: Install flutter_analyze_reporter
 
