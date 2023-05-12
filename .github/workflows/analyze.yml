@@ -27,6 +27,8 @@ jobs:
 
       # Lint checks
       - name: Analyze Dart
-      - run: dart pub global activate -s path .
+
+      # Activate locally
+      - run: flutter pub global activate -s path .
 
       - run: flutter_analyze_reporter
