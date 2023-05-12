@@ -28,10 +28,12 @@ jobs:
       # Check for any formatting issues in the code.
       - run: flutter format --set-exit-if-changed .
 
-      # Lint checks
-      - name: Analyze Dart
+      - name: Install flutter_analyze_reporter
 
       # Activate locally
       - run: flutter pub global activate -s path .
+
+      # Lint checks
+      - name: Analyze Dart
 
       - run: flutter_analyze_reporter
