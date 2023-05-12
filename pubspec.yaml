@@ -1,6 +1,6 @@
 name: flutter_analyze_reporter
 description: Parse Flutter analyze output to display it within GitLab Code Quality Widget
-version: 0.0.12
+version: 0.0.13
 homepage: https://github.com/andnexus/flutter_analyze_reporter
 repository: https://github.com/andnexus/flutter_analyze_reporter
 issue_tracker: https://github.com/andnexus/flutter_analyze_reporter/issues
@@ -9,7 +9,7 @@ executables:
   flutter_analyze_reporter:
 
 environment:
-  sdk: '>=3.0.0 <4.0.0'
+  sdk: '>=2.19.0 <4.0.0'
 
 dependencies:
   ansicolor: ^2.0.1
