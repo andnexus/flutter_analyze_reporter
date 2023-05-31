@@ -2,5 +2,6 @@
 enum Reporter {
   console,
   gitlab,
+  github,
   checkstyle,
 }

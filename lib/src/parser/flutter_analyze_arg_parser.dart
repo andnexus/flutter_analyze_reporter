@@ -35,6 +35,11 @@ class FlutterAnalyzeArgParser {
                   e.name,
                   'Generate GitLab code quality JSON report.',
                 );
+              case Reporter.github:
+                return MapEntry(
+                  e.name,
+                  'Print out GitHub workflow messages.',
+                );
               case Reporter.checkstyle:
                 return MapEntry(e.name, 'Generate Checkstyle report.');
             }
