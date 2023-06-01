@@ -10,6 +10,7 @@ A parser to create reports from `flutter analyze` output.
 
           [checkstyle]           Generate Checkstyle report.
           [console] (default)    Print output to console.
+          [github]               Print out GitHub workflow messages.
           [gitlab]               Generate GitLab code quality JSON report.
 
 -o, --output                     Output file name.
@@ -17,7 +18,7 @@ A parser to create reports from `flutter analyze` output.
 ```
 Usage example `flutter_analyze_reporter --output report.json --reporter gitlab`
 
-# GitLab CI example
+# GitLab CI
 
 Parse `flutter analyze` output for [GitLab Code Quality Widget](https://docs.gitlab.com/ee/ci/testing/code_quality.html).
 
@@ -36,4 +37,28 @@ code_quality:
   artifacts: 
     reports:
       codequality: report.json
+```
+
+# GitHub CI
+
+Parse `flutter analyze` output for [GitHub Workflow messages](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions).
+
+`.github/workflows/test.yml` file:
+
+```
+name: Test
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Analyze
+        run: |
+          dart pub global activate flutter_analyze_reporter
+          flutter_analyze_reporter --reporter github
+        shell: bash
 ```
