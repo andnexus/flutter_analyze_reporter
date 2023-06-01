@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+* Documentation and GitHub Workflow sample
+
 ## 0.1.0
 
 * Workflow commands for GitHub action messages
