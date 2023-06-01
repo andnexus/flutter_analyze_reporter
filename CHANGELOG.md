@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+* Documentation and GitHub Workflow sample
+
 ## 0.1.1
 
 * Documentation and GitHub Workflow sample

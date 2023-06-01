@@ -3,9 +3,7 @@ Flutter Analyze Reporter is a parser to create reports from `flutter analyze` ou
 It supports [GitLab Code Quality Widget](https://docs.gitlab.com/ee/ci/testing/code_quality.html)
 format
 or [GitHub Workflow messages](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions)
-.
-
-Currently only useful if you would like to display lint issues within or create a checkstyle report.
+. Please see [example](https://pub.dev/packages/flutter_analyze_reporter/example).
 
 ## GitLab Code Quality Widget
 
@@ -17,7 +15,7 @@ No Changes to code quality
 
 ![GitLab Merge Request Code Quality Widget](https://raw.githubusercontent.com/andnexus/flutter_analyze_reporter/main/assets/no_changes_to_code_quality.png "GitLab Merge Request Code Quality Widget")
 
-## GitHub workflow summary
+## GitHub Workflow Summary
 
 Warning, error and notice messages
 
